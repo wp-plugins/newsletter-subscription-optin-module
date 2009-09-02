@@ -6,7 +6,7 @@ Requires at least: 2.0.0
 Tested up to: 2.3.3
 Stable tag: 1.1
 
-Widget ready sidebar form for newsletter subscription, single and double opt-in. Stores subscribed email addresses, complatible with SendBlaster.
+Widget ready sidebar form for newsletter subscription, single and double opt-in. Stores subscribed email addresses, compatible with SendBlaster.
 
 == Description ==
 
