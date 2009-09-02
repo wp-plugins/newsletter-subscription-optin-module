@@ -10,9 +10,9 @@ Widget ready sidebar form for newsletter subscription, single and double opt-in.
 
 == Description ==
 
-Enables widget ready sidebar forms for newsletter subscription, single opt-in and double opt-in options. Stores subscribed email addresses, purges old email addresses. Customizable sidebar appearance, customizable texts and labels. Add up to 15 custom fields to gather all the informations about your users that you need for your email marketing campaigns. Complatible with SendBlaster (any version).
+Enables widget ready sidebar forms for newsletter subscription, single opt-in and double opt-in options. Stores subscribed email addresses, purges old email addresses. Customizable sidebar appearance, customizable texts and labels. Add up to 15 custom fields to gather all the informations about your users that you need for your email marketing campaigns. Compatible with SendBlaster (any version).
 
-Widget sidebar forms for newsletter subscription is compatible with SendBlaster [Newsletter software](http://www.sendblaster.com/newsletter-software-no-recurring-fees/ "newsletter software"). Enables mailing list [Email merge](http://www.sendblaster.com/email-merge-personalized/ "email merge personalization").
+Widget sidebar form for newsletter subscription is compatible with SendBlaster [Newsletter software](http://www.sendblaster.com/newsletter-software-no-recurring-fees/ "newsletter software"). Enables mailing list [Email merge](http://www.sendblaster.com/email-merge-personalized/ "email merge personalization").
 
 Other features:
 
