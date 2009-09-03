@@ -79,5 +79,5 @@ http://wordpress.org/extend/plugins/exec-php/
 
 then write this code in your post:
 
-`<? php wpsb_opt_in(); ?>`
+`<?php wpsb_opt_in(); ?>`
 
