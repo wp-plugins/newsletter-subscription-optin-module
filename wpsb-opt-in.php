@@ -3,7 +3,7 @@
 Plugin Name: Wordpress Newsletter subscription Opt-in for SendBlaster
 Plugin URI: http://www.sendblaster.com/wordpress-newsletter-double-optin-widget/
 Description: Create a simple form to collect subscription requests to newsletter software managed mailing lists. User input is stored in the db and sent by e-mail in a format compatible with common newsletter softwares' data structure and subscription management.
-Version: 1.1.6
+Version: 1.1.5
 Author: Max
 Author URI: http://www.sendblaster.com/
 */
