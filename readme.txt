@@ -14,7 +14,7 @@ Enables widget ready sidebar forms for newsletter subscription, single opt-in an
 
 = Emailing software related features =
 
-Complatible with SendBlaster Pro [bulk email software](http://www.sendblaster.com "bulk email software") :
+Compatible with SendBlaster Pro [bulk email software](http://www.sendblaster.com "bulk email software") :
 
 * [bulk email software download](http://www.sendblaster.com/free-bulk-emailer-download/ "bulk email software download")
 
