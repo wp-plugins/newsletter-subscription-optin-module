@@ -3,7 +3,7 @@
 Plugin Name: Wordpress Newsletter subscription Opt-in for SendBlaster
 Plugin URI: http://www.sendblaster.com/wordpress-newsletter-double-optin-widget/
 Description: Create a simple form to collect subscription requests to newsletter software managed mailing lists. User input is stored in the db and sent by e-mail in a format compatible with common newsletter softwares' data structure and subscription management.
-Version: 1.1.5
+Version: 1.1.6
 Author: Max
 Author URI: http://www.sendblaster.com/
 */
@@ -34,7 +34,14 @@ function wpsb_show_form($rtn = 0) {
 	$out = '<form action="#wpsbw" method="post">' . "\n";
 	$out .= '<p class="wpsb_form_label">' . get_option('wpsb_form_email');
 	$out .= '<br /> <input type="text" name="wpsb_email" id="wpsb_email" class="wpsb_form_txt" /></p>' . "\n";
-	
+	if (is_array($wpsb_flds)) {
+		foreach ($wpsb_flds as $wpsb_k => $wpsb_v) {
+			if (is_numeric($wpsb_k) && $wpsb_v) {
+				$out .= '<p class="wpsb_form_label">' . $wpsb_v;
+				$out .= ' <input type="text" name="wpsb_fld['. $wpsb_k .']" id="wpsb_fld_'. $wpsb_k .'"  maxlength="64" class="wpsb_form_txt" /></p>' . "\n";
+			}
+		}
+	}
 	$out .= '<script type="text/javascript">
 	//<![CDATA[	
 		function wpsb_toggle_custom_fields (state) {
@@ -52,18 +59,10 @@ function wpsb_show_form($rtn = 0) {
 	$out .= '<br/>';
 	$out .= '<input type="radio" name="wpsb_radio_option" id="wpsb_radio_option2" onclick="wpsb_toggle_custom_fields(0)" class="wpsb_form_radio" value="wpsb_radio_out" /> '.$wpsb_flds['wpsb_radio_out'].'</p>';
 	
-	if (is_array($wpsb_flds)) {
-		foreach ($wpsb_flds as $wpsb_k => $wpsb_v) {
-			if (is_numeric($wpsb_k) && $wpsb_v) {
-				$out .= '<p class="wpsb_form_label">' . $wpsb_v;
-				$out .= ' <input type="text" name="wpsb_fld['. $wpsb_k .']" id="wpsb_fld_'. $wpsb_k .'"  maxlength="64" class="wpsb_form_txt" /></p>' . "\n";
-			}
-		}
-	}
 	$out .= '<p class="wpsb_form_label"><input type="submit" value="' . get_option('wpsb_form_send');
-	$out .= '" class="wpsb_form_btn" /></p>' . "\n</form>\n<!-- Made by www.Sendblaster.com Newsletter Software Opt-in -->\n";
+	$out .= '" class="wpsb_form_btn" /></p>' . "\n</form>\n<!-- Made by www.SendBlaster.com Newsletter Software Opt-in -->\n";
 	if ($add_link_lv) {
-		$out .= "Get this <a href=\"http://wordpress.org/extend/plugins/newsletter-subscription-double-optin-7/\" title=\"Wordpress newsletter plugin\">Wordpress newsletter widget</a><br /> for <a href=\"http://www.sendblaster.com/newsletter-software-no-recurring-fees/\" title=\"newsletter softwares\">newsletter software</a>";
+		$out .= "<h6>Get this <a href=\"http://wordpress.org/extend/plugins/newsletter-subscription-double-optin/\" title=\"Wordpress newsletter plugin\">Wordpress newsletter widget</a><br /> for <a href=\"http://www.sendblaster.com/newsletter-software-no-recurring-fees/\" title=\"newsletter softwares\">newsletter software</a></h6>";
 	}
 	if ($rtn) {
 		return $out;
@@ -268,7 +267,7 @@ function wpsb_install() {
 		add_option('wpsb_widget_title', 'Choose a title for the widget');
 		add_option('wpsb_email_from', get_option('admin_email') );
 		add_option('wpsb_email_subject', "[$blogname] Mailing list subscription");
-		add_option('wpsb_email_message', "This is an automatic response to a subscription request started at $blogname.\n\nThanks for subscribing.\n\n#link#");
+		add_option('wpsb_email_message', "This is an automatic response to a subscription request started at $blogname.\nThanks for subscribing.\n\n#link#");
 		add_option('wpsb_double_optin', "1");
 		add_option('wpsb_link_love', "1");
 		add_option('wpsb_auto_delete', "0");
@@ -465,7 +464,7 @@ function wpsb_options() {
         <td>
           <input type="checkbox" name="wpsb_auto_delete" id="wpsb_auto_delete" value="1"<?php echo $auto_delete ? " checked=\"checked\"" : "";?> />
           If checked automatically removes users upon their subscription (use 
-          only if you download your suscriptions daily)</td>
+          only if you download your subscriptions daily)</td>
       </tr>
       <tr valign="top"> 
         <td colspan="2">&nbsp;</td>
@@ -677,8 +676,8 @@ function wpsb_options() {
 	}
 	if ($users = $wpdb->get_results("SELECT * FROM $table_users ORDER BY `id` DESC")) {
 		$user_no=0;
-		$url = get_bloginfo('wpurl') . '/wp-admin/options-general.php?page=' .
-			basename(__FILE__);
+		//$url = get_bloginfo('wpurl') . '/wp-admin/options-general.php?page=' . basename(dirname(__FILE__)). '/' . basename(__FILE__);
+		$url = get_bloginfo('wpurl') . '/wp-admin/options-general.php?page=' . $_GET['page'];
 ?>
 <table class="widefat">
 <thead>    
@@ -774,25 +773,25 @@ function wpsb_widget_init() {
 	$width = 300;
 	$height = 100;
 	if ( '2.2' == $wp_version || (!function_exists( 'wp_register_sidebar_widget' ))) {
-		register_sidebar_widget('WP Sendblaster Opt-in', 'wpsb_widget');
-		register_widget_control('WP Sendblaster Opt-in', 'wpsb_widget_control', $width, $height);
+		register_sidebar_widget('WP SendBlaster Opt-in', 'wpsb_widget');
+		register_widget_control('WP SendBlaster Opt-in', 'wpsb_widget_control', $width, $height);
 	} else {
 		// v2.2.1+
 		$size = array('width' => $width, 'height' => $height);
 		$class = array( 'classname' => 'wpsb_opt_in' ); // css classname
-		wp_register_sidebar_widget('wpsb', 'WP Sendblaster Opt-in', 'wpsb_widget', $class);
-		wp_register_widget_control('wpsb', 'WP Sendblaster Opt-in', 'wpsb_widget_control', $size);
+		wp_register_sidebar_widget('wpsb', 'WP SendBlaster Opt-in', 'wpsb_widget', $class);
+		wp_register_widget_control('wpsb', 'WP SendBlaster Opt-in', 'wpsb_widget_control', $size);
 	}
 	if (function_exists('register_sidebar_module')) {
 		$class = array( 'classname' => 'wpsb_opt_in' ); // css classname
-		register_sidebar_module('WP Sendblaster Opt-in', 'wpsb_widget', '', $class);
-		register_sidebar_module_control('WP Sendblaster Opt-in', 'wpsb_widget_control');
+		register_sidebar_module('WP SendBlaster Opt-in', 'wpsb_widget', '', $class);
+		register_sidebar_module_control('WP SendBlaster Opt-in', 'wpsb_widget_control');
 
 	}
 }
 
 function wpsb_add_to_menu() {
-	add_options_page('WP Sendblaster Opt-in Options', 'WP Sendblaster Opt-in', 7, __FILE__, 'wpsb_options' );
+	add_options_page('WP SendBlaster Opt-in Options', 'WP SendBlaster Opt-in', 7, __FILE__, 'wpsb_options' );
 }
 
 function wpsb_insert ($cnt) {
