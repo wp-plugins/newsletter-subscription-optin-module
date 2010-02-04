@@ -10,7 +10,7 @@ Plugin for managing subscriptions to a mailing list. It provides a simple form f
 
 == Description ==
 
-This plugin enables you to create simple forms for subscription to your newsletter. It includes a sidebar widget with customizable fields (up to 15) to gather all the informations about your users that you need for your email marketing campaigns. Users can also use the form to unsubscribe.
+This plugin enables you to create simple forms for subscription to your newsletter. It includes a sidebar widget with customizable fields (up to 15) to gather from your users all the information you need for your email marketing campaigns. Users can also use the form to unsubscribe.
 
 From the options page you can:
 
